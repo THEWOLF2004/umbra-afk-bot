@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
 
 const client = new Client({
   intents: [
@@ -7,7 +7,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions
   ],
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION']
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction]
 });
 
 const AFK_CHANNEL_ID = process.env.AFK_CHANNEL_ID;
