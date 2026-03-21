@@ -61,10 +61,12 @@ const UNVERIFIED_ROLE = process.env.UNVERIFIED_ROLE;
 const VERIFIED_ROLE = process.env.VERIFIED_ROLE;
 
 client.on('messageReactionAdd', async (reaction, user) => {
+  console.log("EMOJI:", reaction.emoji.name); // 👈 QUI
+
   if (user.bot) return;
 
   if (reaction.message.channel.id === VERIFY_CHANNEL_ID) {
-    if (reaction.emoji.name.includes(':☣️')) {
+    if (reaction.emoji.name.includes('☣')) {
       const member = await reaction.message.guild.members.fetch(user.id);
 
       if (member) {
