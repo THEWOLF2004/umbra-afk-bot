@@ -3,7 +3,9 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildVoiceStates
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildMessages
   ]
 });
 
@@ -50,6 +52,25 @@ const embed = new EmbedBuilder()
   .setTimestamp();
 
 logChannel.send({ embeds: [embed] });
+    }
+  }
+});
+
+const VERIFY_CHANNEL_ID = process.env.VERIFY_CHANNEL_ID;
+const UNVERIFIED_ROLE = process.env.UNVERIFIED_ROLE;
+const VERIFIED_ROLE = process.env.VERIFIED_ROLE;
+
+client.on('messageReactionAdd', async (reaction, user) => {
+  if (user.bot) return;
+
+  if (reaction.message.channel.id === VERIFY_CHANNEL_ID) {
+    if (reaction.emoji.name.includes('☣')) {
+      const member = await reaction.message.guild.members.fetch(user.id);
+
+      if (member) {
+        await member.roles.remove(UNVERIFIED_ROLE);
+        await member.roles.add(VERIFIED_ROLE);
+      }
     }
   }
 });
