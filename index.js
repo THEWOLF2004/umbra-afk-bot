@@ -4,9 +4,10 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.GuildMessages
-  ]
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions
+  ],
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 });
 
 const AFK_CHANNEL_ID = process.env.AFK_CHANNEL_ID;
