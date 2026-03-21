@@ -64,7 +64,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
   if (user.bot) return;
 
   if (reaction.message.channel.id === VERIFY_CHANNEL_ID) {
-    if (reaction.emoji.name.includes('☣')) {
+    if (reaction.emoji.name.includes(':☣️')) {
       const member = await reaction.message.guild.members.fetch(user.id);
 
       if (member) {
