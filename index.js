@@ -77,5 +77,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
     }
   }
 });
+client.on('guildMemberAdd', async (member) => {
+    const role = member.guild.roles.cache.get(process.env.UNVERIFIED_ROLE);
 
+    if (role) {
+        await member.roles.add(role);
+        console.log(`Utente ${member.user.username} aggiunto come Unverified`);
+    } else {
+        console.log("Ruolo Unverified non trovato");
+    }
+});
 client.login(process.env.TOKEN);
